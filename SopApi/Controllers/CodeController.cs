@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SopApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Services")]
     [ApiController]
     public class CodeController : ControllerBase
     {
@@ -44,7 +44,14 @@ namespace SopApi.Controllers
         [Authorize]
         public Task<List<SECode>> DeCodeByCodeDemetech(string Code)
         {
-            return new SNCode(HttpContext).DeCodeByCodeDemetech(Code);
+            try 
+            {
+                return new SNCode(HttpContext).DeCodeByCodeDemetech(Code);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         //Proceso para codificar de manera masiva para codigos demetech
