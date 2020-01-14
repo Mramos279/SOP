@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/Country
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SECountry>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNCountry _SNCountry = new SNCountry(HttpContext);
+            return await _SNCountry.GetAllCountry();
         }
 
         // GET: api/Country/5

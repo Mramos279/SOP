@@ -15,7 +15,7 @@ namespace SopApi.Model.Negocio
         private HttpContext _HttpContext = null;
         private string _Class = null;
         private string _Method = null;
-        private string _TableName = "Sop.Account";
+        //private string _TableName = "Sop.Account";
 
         public SNAccount(HttpContext HttpContext)
         {
@@ -76,7 +76,7 @@ namespace SopApi.Model.Negocio
             _Method = "public async Task<List<SEAccount>> GetAllAccount()";
             string sp = "Sop.spAccountGetAll";
 
-            List<SEAccount> resultado = new List<SEAccount>();
+            List<SEAccount> result = new List<SEAccount>();
 
             SDConexion database = new SDConexion(_HttpContext);
             try
@@ -85,13 +85,15 @@ namespace SopApi.Model.Negocio
                 if (response.StatusCode != "00")
                     throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
                 else
-                    return response.Result;
+                    result = response.Result;
             }
             catch (Exception ex)
             {
                 database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
                 throw ex;
             }
+
+            return result;
         }
     }
 }

@@ -69,5 +69,30 @@ namespace SopApi.Model.Negocio
             }
             return result;
         }
+
+        public async Task<List<SEBank>> GetAllBank()
+        {
+            _Method = "public async Task<List<SEBank>> GetAllBank()";
+            string sp = "spBankGetAll";
+            List<SEBank> result = new List<SEBank>();
+
+            SDConexion database = new SDConexion(_HttpContext);
+
+            try
+            {
+                Response<List<SEBank>> response = await database.QueryAsync<SEBank>(sp);
+                if (response.StatusCode != "00")
+                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                else
+                    result = response.Result;
+            }
+            catch (Exception ex)
+            {
+                database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

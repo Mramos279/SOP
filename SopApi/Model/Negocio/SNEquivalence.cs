@@ -70,5 +70,29 @@ namespace SopApi.Model.Negocio
 
             return result;
         }
+
+        public async Task<List<SEEquivalence>> GetAllEquivalence()
+        {
+            _Method = "public async Task<List<SEEquivalence>> GetAllEquivalence()";
+            string sp = "spEquivalenceGetAll";
+            List<SEEquivalence> result = new List<SEEquivalence>();
+
+            SDConexion database = new SDConexion(_HttpContext);
+            try
+            {
+                Response<List<SEEquivalence>> response = await database.QueryAsync<SEEquivalence>(sp);
+                if (response.StatusCode != "00")
+                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                else
+                    result = response.Result;
+            }
+            catch (Exception ex)
+            {
+                database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

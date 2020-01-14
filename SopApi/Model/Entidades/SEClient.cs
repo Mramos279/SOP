@@ -20,8 +20,8 @@ namespace SopApi.Model.Entidades
         public Int16 IdCountry { get; set; }
         public Int16 IdCurrency { get; set; }
         public Int16 IdAccount { get; set; }
-        public Int16 Discount { get; set; }
-        public Int16 TotalDiscount { get; set; }
+        public byte Discount { get; set; }
+        public byte TotalDiscount { get; set; }
         public decimal Euroexchange { get; set; }
         public string CreditPeriod { get; set; }
         public bool Active { get; set; }

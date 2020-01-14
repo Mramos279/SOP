@@ -66,5 +66,29 @@ namespace SopApi.Model.Negocio
             }
             return result;
         }
+
+        public async Task<List<SETypeParameter>> GetAllTypeParameter()
+        {
+            _Method = "public async Task<List<SETypeParameter>> GetAllTypeParameter()";
+            string sp = "spTypeParameterGetAll";
+            List<SETypeParameter> result = new List<SETypeParameter>();
+
+            SDConexion database = new SDConexion(_HttpContext);
+            try
+            {
+                Response<List<SETypeParameter>> response = await database.QueryAsync<SETypeParameter>(sp);
+                if (response.StatusCode != "00")
+                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                else
+                    result = response.Result;
+            }
+            catch (Exception ex)
+            {
+                database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

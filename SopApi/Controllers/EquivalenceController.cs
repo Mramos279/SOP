@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/Equivalence
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SEEquivalence>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNEquivalence _SNEquivalence = new SNEquivalence(HttpContext);
+            return await _SNEquivalence.GetAllEquivalence();
         }
 
         // GET: api/Equivalence/5

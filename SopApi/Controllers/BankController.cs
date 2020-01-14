@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/Bank
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SEBank>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNBank _SNBank = new SNBank(HttpContext);
+            return await _SNBank.GetAllBank();
         }
 
         // GET: api/Bank/5

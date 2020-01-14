@@ -20,9 +20,10 @@ namespace SopApi.Controllers
 
         // GET: api/Currency
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SECurrency>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNCurrency _SNCurrency = new SNCurrency(HttpContext);
+            return await _SNCurrency.GetAllCurrency();
         }
 
         // GET: api/Currency/5

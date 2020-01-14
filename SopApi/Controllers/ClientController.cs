@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/Client
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SEClient>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNClient _SNClient = new SNClient(HttpContext);
+            return await _SNClient.GetAllClient();
         }
 
         // GET: api/Client/5

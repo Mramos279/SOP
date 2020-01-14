@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/TypeParameter
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SETypeParameter>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNTypeParameter _SNTypeParameter = new SNTypeParameter(HttpContext);
+            return await _SNTypeParameter.GetAllTypeParameter();
         }
 
         // GET: api/TypeParameter/5

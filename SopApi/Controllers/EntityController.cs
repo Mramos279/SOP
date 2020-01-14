@@ -15,9 +15,10 @@ namespace SopApi.Controllers
     {
         // GET: api/Entity
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<List<SEEntity>> Get()
         {
-            return new string[] { "value1", "value2" };
+            SNEntity _SNEntity = new SNEntity(HttpContext);
+            return await _SNEntity.GetAllEntity();
         }
 
         // GET: api/Entity/5
