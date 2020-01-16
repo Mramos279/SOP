@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/Entity
         [HttpPost]
-        public async Task<int> Post(SEEntity entity)
+        public async Task<SEResponse> Post(SEEntity entity)
         {
             SNEntity _SNEntity = new SNEntity(HttpContext);
             return await _SNEntity.InsertEntity(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Entity/5
         [HttpPut]
-        public async Task<int> Put(SEEntity entity)
+        public async Task<SEResponse> Put(SEEntity entity)
         {
             SNEntity _SNEntity = new SNEntity(HttpContext);
             return await _SNEntity.UpdateEntity(entity);

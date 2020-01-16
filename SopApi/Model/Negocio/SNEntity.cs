@@ -22,52 +22,64 @@ namespace SopApi.Model.Negocio
             _HttpContext = HttpContext;
         }
 
-        public async Task<int> InsertEntity(SEEntity entity)
+        public async Task<SEResponse> InsertEntity(SEEntity entity)
         {
             _Method = "public async Task<int> InsertEntity(SEEntity entity)";
             string sp = "spEntityInsert";
-            int result = 0;
 
             SDConexion database = new SDConexion(_HttpContext);
             try
             {
                 Response<int> response = await database.ExecuteAsync(sp, entity.Description, 4);
                 if (response.StatusCode != "00")
-                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                {
+                    if (response.StatusCode == "03" && response.Message.Contains("ERROR CONTROLADO:"))
+                    {
+                        SEResponse result = new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Info };
+                        if (response.Message.Contains("El registro ya existe")) result.StatusCode = SEStatusCode.Exist;
+                        return result;
+                    }
+                    else
+                        throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                }
                 else
-                    result = response.Result;
+                    return new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Insert };
             }
             catch (Exception ex)
             {
                 database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
                 throw ex;
             }
-
-            return result;
         }
 
-        public async Task<int> UpdateEntity(SEEntity entity)
+        public async Task<SEResponse> UpdateEntity(SEEntity entity)
         {
             _Method = "public async Task<int> UpdateEntity(SEEntity entity)";
             string sp = "spEntityUpdate";
-            int result = 0;
 
             SDConexion database = new SDConexion(_HttpContext);
             try
             {
                 Response<int> response = await database.ExecuteAsync(sp, entity.IdEntity, entity.Description, entity.Active, 4);
                 if (response.StatusCode != "00")
-                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                {
+                    if (response.StatusCode == "03" && response.Message.Contains("ERROR CONTROLADO:"))
+                    {
+                        SEResponse result = new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Info };
+                        if (response.Message.Contains("El registro ya existe")) result.StatusCode = SEStatusCode.Exist;
+                        return result;
+                    }
+                    else
+                        throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                }
                 else
-                    result = response.Result;
+                    return new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Update };
             }
             catch (Exception ex)
             {
                 database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
                 throw ex;
             }
-
-            return result;
         }
 
         public async Task<List<SEEntity>> GetAllEntity()

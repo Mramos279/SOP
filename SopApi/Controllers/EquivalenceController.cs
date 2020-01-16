@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/Equivalence
         [HttpPost]
-        public async Task<int> Post(SEEquivalence entity)
+        public async Task<SEResponse> Post(SEEquivalence entity)
         {
             SNEquivalence _SNEquivalence = new SNEquivalence(HttpContext);
             return await _SNEquivalence.InsertEquivalence(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Equivalence/5
         [HttpPut]
-        public async Task<int> Put(SEEquivalence entity)
+        public async Task<SEResponse> Put(SEEquivalence entity)
         {
             SNEquivalence _SNEquivalence = new SNEquivalence(HttpContext);
             return await _SNEquivalence.UpdateEquivalence(entity);

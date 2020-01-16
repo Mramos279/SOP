@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/Bank
         [HttpPost]
-        public async Task<int> Post(SEBank entity)
+        public async Task<SEResponse> Post(SEBank entity)
         {
             SNBank _SNBank = new SNBank(HttpContext);
             return await _SNBank.InsertBank(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Bank/5
         [HttpPut]
-        public async Task<int> Put(SEBank entity)
+        public async Task<SEResponse> Put(SEBank entity)
         {
             SNBank _SNBank = new SNBank(HttpContext);
             return await _SNBank.UpdateBank(entity);

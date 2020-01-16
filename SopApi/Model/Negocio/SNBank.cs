@@ -15,7 +15,7 @@ namespace SopApi.Model.Negocio
         private HttpContext _HttpContext = null;
         private string _Class = null;
         private string _Method = null;
-        private string _TableName = "Sop.Bank";
+        //private string _TableName = "Sop.Bank";
 
         public SNBank(HttpContext HttpContext)
         {
@@ -23,51 +23,64 @@ namespace SopApi.Model.Negocio
             _HttpContext = HttpContext;
         }
 
-        public async Task<int> InsertBank(SEBank entity)
+        public async Task<SEResponse> InsertBank(SEBank entity)
         {
             _Method = "public async Task<int> InsertBank(SEBank entity)";
             string sp = "spBankInsert";
-
-            int result = 0;
 
             SDConexion database = new SDConexion(_HttpContext);
             try
             {
                 Response<int> response = await database.ExecuteAsync(sp, entity.BankName, entity.Address, entity.Phone, 4);
                 if (response.StatusCode != "00")
-                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                {
+                    if (response.StatusCode == "03" && response.Message.Contains("ERROR CONTROLADO:"))
+                    {
+                        SEResponse result = new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Info };
+                        if (response.Message.Contains("El registro ya existe")) result.StatusCode = SEStatusCode.Exist;
+                        return result;
+                    }
+                    else
+                        throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                }
                 else
-                    result = response.Result;
+                    return new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Insert };
             }
             catch (Exception ex)
             {
                 database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
                 throw ex;
             }
-            return result;
         }
 
-        public async Task<int> UpdateBank(SEBank entity)
+        public async Task<SEResponse> UpdateBank(SEBank entity)
         {
             _Method = "public async Task<int> UpdateBank(SEBank entity)";
             string sp = "spBankUpdate";
-            int result = 0;
 
             SDConexion database = new SDConexion(_HttpContext);
             try
             {
                 Response<int> response = await database.ExecuteAsync(sp, entity.IdBank, entity.BankName, entity.Address, entity.Phone, entity.Active, 4);
                 if (response.StatusCode != "00")
-                    throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                {
+                    if(response.StatusCode == "03" && response.Message.Contains("ERROR CONTROLADO:"))
+                    {
+                        SEResponse result = new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Info };
+                        if (response.Message.Contains("El registro ya existe")) result.StatusCode = SEStatusCode.Exist;
+                        return result;
+                    }
+                    else
+                        throw new Exception(string.Format("{0}, {1}", response.StatusCode, response.Message));
+                }
                 else
-                    result = response.Result;
+                    return new SEResponse() { Message = response.Message, StatusCode = SEStatusCode.Update };
             }
             catch (Exception ex)
             {
                 database.InsertErrorAsyc(_Class, _Method, sp, ex.Message.ToString());
                 throw ex;
             }
-            return result;
         }
 
         public async Task<List<SEBank>> GetAllBank()

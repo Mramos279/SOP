@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/Client
         [HttpPost]
-        public async Task<int> Post(SEClient entity)
+        public async Task<SEResponse> Post(SEClient entity)
         {
             SNClient _SNClient = new SNClient(HttpContext);
             return await _SNClient.InsertClient(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Client/5
         [HttpPut]
-        public async Task<int> Put(SEClient entity)
+        public async Task<SEResponse> Put(SEClient entity)
         {
             SNClient _SNClient = new SNClient(HttpContext);
             return await _SNClient.UpdateClient(entity);

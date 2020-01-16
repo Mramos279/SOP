@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/TypeParameter
         [HttpPost]
-        public async Task<int> Post(SETypeParameter entity)
+        public async Task<SEResponse> Post(SETypeParameter entity)
         {
             SNTypeParameter _SNTypeParameter = new SNTypeParameter(HttpContext);
             return await _SNTypeParameter.InsertTypeParameter(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/TypeParameter/5
         [HttpPut]
-        public async Task<int> Put(SETypeParameter entity)
+        public async Task<SEResponse> Put(SETypeParameter entity)
         {
             SNTypeParameter _SNTypeParameter = new SNTypeParameter(HttpContext);
             return await _SNTypeParameter.UpdateTypeParameter(entity);

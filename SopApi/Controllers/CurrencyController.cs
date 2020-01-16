@@ -35,7 +35,7 @@ namespace SopApi.Controllers
 
         // POST: api/Currency
         [HttpPost]
-        public async Task<int> Post(SECurrency entity)
+        public async Task<SEResponse> Post(SECurrency entity)
         {
             SNCurrency _SNCurrency = new SNCurrency(HttpContext);
             return await _SNCurrency.InsertCurrency(entity);
@@ -43,7 +43,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Currency/5
         [HttpPut]
-        public async Task<int> Put(SECurrency entity)
+        public async Task<SEResponse> Put(SECurrency entity)
         {
             SNCurrency _SNCurrency = new SNCurrency(HttpContext);
             return await _SNCurrency.UpdateCurrency(entity);

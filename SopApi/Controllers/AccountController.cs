@@ -30,16 +30,16 @@ namespace SopApi.Controllers
 
         // POST: api/Account
         [HttpPost]
-        public async Task<int> Post(SEAccount entity)
+        public async Task<SEResponse> Post(SEAccount entity)
         {
-            SNAccount _SNAccount = new SNAccount(HttpContext);
+             SNAccount _SNAccount = new SNAccount(HttpContext);
             return await _SNAccount.InsertAccount(entity);
 
         }
 
         // PUT: api/Account/5
         [HttpPut]
-        public async Task<int> Put(SEAccount entity)
+        public async Task<SEResponse> Put(SEAccount entity)
         {
             SNAccount _SNAccount = new SNAccount(HttpContext);
             return await _SNAccount.UpdateAccount(entity);

@@ -30,7 +30,7 @@ namespace SopApi.Controllers
 
         // POST: api/Country
         [HttpPost]
-        public async Task<int> Post(SECountry entity)
+        public async Task<SEResponse> Post(SECountry entity)
         {
             SNCountry _SNCountry = new SNCountry(HttpContext);
             return await _SNCountry.InsertCountry(entity);
@@ -38,7 +38,7 @@ namespace SopApi.Controllers
 
         // PUT: api/Country/5
         [HttpPut]
-        public async Task<int> Put(SECountry entity)
+        public async Task<SEResponse> Put(SECountry entity)
         {
             SNCountry _SNCountry = new SNCountry(HttpContext);
             return await _SNCountry.UpdateCountry(entity);
