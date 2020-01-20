@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <Reference Include="ApiConsumer">
-      <HintPath>..\..\ApiConsumerTest\ApiConsumer\bin\Debug\netcoreapp3.0\ApiConsumer.dll</HintPath>
+      <HintPath>..\..\ApiConsumer.dll</HintPath>
     </Reference>
   </ItemGroup>
 

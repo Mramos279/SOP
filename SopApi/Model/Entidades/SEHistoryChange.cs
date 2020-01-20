@@ -7,16 +7,13 @@ namespace SopApi.Model.Entidades
 {
     public class SEHistoryChange
     {
+        public long IdHistory { get; set; }
         public string TableName { get; set; }
-        public string TableId { get; set; }
-        public string ColumnName { get; set; }
-        public string Before { get; set; }
-        public string After { get; set; }
-        public string Action { get; set; }
-        public int IdUser { get; set; }
-        public string IP { get; set; }
-        public string ComputerName { get; set; }
-        public string ChangeNote { get; set; }
-
+        public int TableId { get; set; }
+        public string Changes { get; set; }
+        public byte IdAction { get; set; }
+        public int UserId { get; set; }
+        public DateTime RegistDate { get; set; }
+        public int RegistDateNum { get; set; }
     }
 }

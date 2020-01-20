@@ -13,5 +13,6 @@ namespace SopApi.Model.Entidades
         public Int16 IdCurrency { get; set; }
         public string Currency { get; set; }
         public string TypePrice { get; set; }
+        public bool Active { get; set; }
     }
 }
