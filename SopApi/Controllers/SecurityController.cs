@@ -291,7 +291,7 @@ namespace SopApi.Controllers
 
                     using (var stream = System.IO.File.Create(ImagenUrl))
                     {
-                       await _File.CopyToAsync(stream);
+                       await _File.CopyToAsync(stream);                        
                     }
                 }
             }
