@@ -37,9 +37,9 @@ namespace SopApi.Model.Datos
                     throw new Exception(string.Format("{0}, {1}", Response.StatusCode, Response.Message));
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+
             }
         }
 
